@@ -90,6 +90,7 @@ const Game = () => {
     <div className="bg-yellow-gradient text-black font-bold p-5">
         <div className='text-3xl'>{word  != false ? word : <BounceLoader />}</div>
     </div>
+
     {/* Artikels */}
     <div className="flex flex-row  justify-center items-center space-x-4">
     <div onClick={()=>{
