@@ -17,7 +17,7 @@ const Game = () => {
     const [correctArticle,setCorrectArticle] = useState('');
     const [rightCount, setRightCount] = useState(0);
     const [wrongCount, setWrongCount] = useState(0);
-    const [level, setLevel] = useState('A1');
+   
 
     const correctSound = new Howl({
         src: [correctSoundFile],
@@ -127,13 +127,6 @@ const Game = () => {
   return (
     <>
     <div className="flex flex-col space-y-4 justify-center items-center min-h-[70vh]">
-    <select  className="bg-black text-white p-3 font-bold text-xl outline-none" >
-        <option value="A1">A1</option>
-        <option value="A2">A2</option>
-        <option value="A3">B1</option>
-        <option value="A3">B2</option>
-        <option value="A3">C1</option>
-    </select>
     <div className="text-2xl text-white font-bold">Select the right Article</div>
     <div className="bg-yellow-gradient text-black font-bold p-5">
         <div className='text-3xl'>{word  != false ? word : <BounceLoader />}</div>

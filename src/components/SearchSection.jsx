@@ -7,12 +7,39 @@ import { motion } from 'framer-motion';
 
 const SearchSection = () => {
 
-  const [search,SetSearch] = useState('')
+  const [search,setSearch] = useState('')
+  const [word,setWord] = useState('')
+  const [wordType,setWordType] = useState('')
   
 
   const handleInputChange = (event) => {
-    SetSearch(event.target.value)
+    setSearch(event.target.value)
+    fetchSearchWord(event.target.value)
+
   };
+
+  const fetchSearchWord = async (word) => {
+    try {
+        const response = await fetch(`https://dictionary.yandex.net/api/v1/dicservice.json/lookup?key=${import.meta.env.VITE_YANDEX_API_KEY}&lang=de-en&text=${word}`);
+        const data = await response.json();
+        console.log(data)
+
+        // Assuming Yandex Dictionary API provides part of speech (pos) in the definition entries
+        if (data.def && data.def.length > 0) {
+            const wordType = data.def[0].pos; // Get the part of speech of the first definition
+            setWord(data.def[0].text);
+            setWordType(wordType);
+
+            console.log(`Word: ${data.def[0].text}, Type: ${wordType}`);
+        } else {
+            setSearch(false)
+        }
+    } catch (error) {
+      setSearch('problem')
+        console.error('Error fetching word details:', error);
+    }
+};
+
 
 
   return (
