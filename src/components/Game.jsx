@@ -1,16 +1,32 @@
 import { useState, useEffect } from 'react'
 import { BounceLoader } from 'react-spinners';
 import { ToastContainer, toast } from 'react-toastify';
+import { Howl } from 'howler';
+import correctSoundFile from '../assets/audio/correct.wav';
+import wrongSoundFile from '../assets/audio/wrong.wav';
+
+
 import AnswerCounter from './parts/AnswerCounter';
 import 'react-toastify/dist/ReactToastify.css';
 
 
 const Game = () => {
+
     // word start
     const [word,setWord] = useState(false);
     const [correctArticle,setCorrectArticle] = useState('');
     const [rightCount, setRightCount] = useState(0);
     const [wrongCount, setWrongCount] = useState(0);
+    const [level, setLevel] = useState('A1');
+
+    const correctSound = new Howl({
+        src: [correctSoundFile],
+      });
+      
+      const incorrectSound = new Howl({
+        src: [wrongSoundFile],
+      });
+
 
 
     const rightCounter = () =>{
@@ -26,6 +42,7 @@ const Game = () => {
         if(correctArticle === article){
             rightCounter()
             toast.dismiss()
+            correctSound.play()
             toast.success("gute answer",
                 {
                     position: "top-center",
@@ -51,7 +68,8 @@ const Game = () => {
         }else
         {
             falseCounter()
-            toast.dismiss();
+            toast.dismiss()
+            incorrectSound.play()
             toast.error(`Nein, das richtige Artikel ist: "${correctArticle}"`, 
                 {
                     position: "top-center",
@@ -109,6 +127,13 @@ const Game = () => {
   return (
     <>
     <div className="flex flex-col space-y-4 justify-center items-center min-h-[70vh]">
+    <select  className="bg-black text-white p-3 font-bold text-xl outline-none" >
+        <option value="A1">A1</option>
+        <option value="A2">A2</option>
+        <option value="A3">B1</option>
+        <option value="A3">B2</option>
+        <option value="A3">C1</option>
+    </select>
     <div className="text-2xl text-white font-bold">Select the right Article</div>
     <div className="bg-yellow-gradient text-black font-bold p-5">
         <div className='text-3xl'>{word  != false ? word : <BounceLoader />}</div>
