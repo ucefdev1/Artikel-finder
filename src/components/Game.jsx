@@ -29,28 +29,51 @@ const Game = () => {
             toast.success("gute answer",
                 {
                     position: "top-center",
-                    autoClose: 2000, // auto closes after 2 seconds
+                    autoClose: 2000, 
                     hideProgressBar: false,
                     closeOnClick: true,
                     pauseOnHover: true,
                     draggable: true,
                     progress: undefined,
+                    style: {
+                        backgroundColor: 'green',        // Red background
+                        color: 'white',                // White text
+                        fontWeight: 'bold',   
+                        borderRadius: '0px', 
+                    },
+                    progressStyle: {
+                        backgroundColor: 'black', 
+                        borderRadius: '0px',      // Black progress bar
+                                  // No border radius for the progress bar
+                    }
                 }
             )
         }else
         {
             falseCounter()
             toast.dismiss();
-            toast.error("nein",
+            toast.error(`Nein, das richtige Artikel ist: "${correctArticle}"`, 
                 {
                     position: "top-center",
-                    autoClose: 2000, // auto closes after 2 seconds
+                    autoClose: 2000, 
                     hideProgressBar: false,
                     closeOnClick: true,
                     pauseOnHover: true,
                     draggable: true,
                     progress: undefined,
+                    style: {
+                        backgroundColor: 'red',        // Red background
+                        color: 'white',                // White text
+                        fontWeight: 'bold',   
+                        borderRadius: '0px', 
+                    },
+                    progressStyle: {
+                        backgroundColor: 'black', 
+                        borderRadius: '0px',      // Black progress bar
+                                  // No border radius for the progress bar
+                    }
                 })
+                
         }
         fetchRandomNoun();
     }
