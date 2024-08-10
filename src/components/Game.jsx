@@ -1,16 +1,30 @@
 import { useState, useEffect } from 'react'
 import { BounceLoader } from 'react-spinners';
 import { ToastContainer, toast } from 'react-toastify';
+import AnswerCounter from './parts/AnswerCounter';
 import 'react-toastify/dist/ReactToastify.css';
+
 
 const Game = () => {
     // word start
     const [word,setWord] = useState(false);
     const [correctArticle,setCorrectArticle] = useState('');
+    const [rightCount, setRightCount] = useState(0);
+    const [wrongCount, setWrongCount] = useState(0);
+
+
+    const rightCounter = () =>{
+        setRightCount(rightCount+1)
+    }
+
+    const falseCounter = (r) =>{
+        setWrongCount(wrongCount+1)
+    }
 
 
     const checkArticle = (article) => {
         if(correctArticle === article){
+            rightCounter()
             toast.dismiss()
             toast.success("gute answer",
                 {
@@ -22,9 +36,10 @@ const Game = () => {
                     draggable: true,
                     progress: undefined,
                 }
-            );
+            )
         }else
         {
+            falseCounter()
             toast.dismiss();
             toast.error("nein",
                 {
@@ -35,7 +50,7 @@ const Game = () => {
                     pauseOnHover: true,
                     draggable: true,
                     progress: undefined,
-                });
+                })
         }
         fetchRandomNoun();
     }
@@ -73,7 +88,7 @@ const Game = () => {
     <div className="flex flex-col space-y-4 justify-center items-center min-h-[70vh]">
     <div className="text-2xl text-white font-bold">Select the right Article</div>
     <div className="bg-yellow-gradient text-black font-bold p-5">
-        <div className='text-3xl'>{word != false ? word : <BounceLoader />}</div>
+        <div className='text-3xl'>{word  != false ? word : <BounceLoader />}</div>
     </div>
     {/* Artikels */}
     <div className="flex flex-row  justify-center items-center space-x-4">
@@ -95,6 +110,7 @@ const Game = () => {
     </div>
 </div>
 <ToastContainer />
+<AnswerCounter r={rightCount} w={wrongCount}/>
     </>
   )
 }
