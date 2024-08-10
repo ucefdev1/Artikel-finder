@@ -45,6 +45,22 @@ const SearchSection = () => {
       className="bg-white min-w-[50vw] mt-4 p-3 sm:p-4 h-[37.5px] text-base sm:text-lg text-black font-bold outline-none"
       onChange={handleInputChange}
     />
+    {/* word suggetions */}
+    <div className='text-white font-bold flex flex-col sm:flex-row py-4 justify-between items-start sm:items-center'>
+  Did you mean :
+  <div className="flex flex-col sm:flex-row">
+    <a className="m-1 border-2 p-1 sm:p-2 hover:border-red-500 border-white text-sm">
+      diduih
+    </a>
+    <a className="m-1 border-2 p-1 sm:p-2 hover:border-red-500 border-white text-sm">
+      duihduihduihd
+    </a>
+    <a className="m-1 border-2 p-1 sm:p-2 hover:border-red-500 border-white text-sm">
+      diudiuhidhiuhduihdihduihuidhuidhihd
+    </a>
+  </div>
+</div>
+
     </motion.div>
         </div>
         {/* After search finished */}
