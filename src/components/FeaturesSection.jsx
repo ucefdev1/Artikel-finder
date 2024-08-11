@@ -47,11 +47,10 @@ const FeaturesSection = ({active}) => {
      <div className="px-6">
        <h2 className="text-xl sm:text-2xl font-bold mb-4 text-center">About This Website</h2>
        <p className="text-sm sm:text-base leading-relaxed">
-         Welcome to the Artikel Wortfinder, your go-to platform for finding the correct articles (der, die, das) in German. 
-         To use this website, simply enter the word you're looking for in the search bar, and our advanced search engine 
-         will instantly provide you with the correct article along with relevant examples. Whether you're a student, a 
-         language enthusiast, or just someone looking to improve their German skills, this tool is designed to make your 
-         learning experience quick and effective.
+       Welcome to the Artikel Wortfinder, your go-to platform for finding the correct articles (der, die, das) in German. To use this website, simply enter the word you're looking for in the search bar, and our advanced search engine will instantly provide you with the correct article along with relevant examples. Whether you're a student, a language enthusiast, or just someone looking to improve their German skills, this tool is designed to make your learning experience quick and effective. <br />
+
+<br />But that's not all—we also offer an interactive game to help you practice and reinforce your knowledge of German articles. Play the game to challenge yourself and master the use of "der," "die," and "das" in a fun and engaging way!
+
        </p>
        <p className="text-sm sm:text-base leading-relaxed mt-4">
          Start by typing a word in the search field, and you'll receive results categorized by the correct article. 

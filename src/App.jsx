@@ -4,7 +4,6 @@ import SearchSection from "./components/SearchSection";
 import FeaturesSection from "./components/FeaturesSection";
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, useLocation } from "react-router-dom";
-import LanguageDropDown from "./components/parts/LanguageDropDown";
 import Game from "./components/Game";
 
 function App() {
@@ -44,7 +43,6 @@ function App() {
         }/>
       </Routes>
       <Footer />
-      <LanguageDropDown/>
     </>
   );
 }

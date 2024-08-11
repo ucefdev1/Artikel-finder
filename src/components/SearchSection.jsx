@@ -12,6 +12,7 @@ const SearchSection = () => {
   const [availableResult,setAvailableResult] = useState(false)
   const [word,setWord] = useState('')
   const [wordType,setWordType] = useState('')
+  const [article,setArticle] = useState(false)
   
 
   const handleInputChange = (event) => {
@@ -22,19 +23,41 @@ const SearchSection = () => {
 
   const fetchSearchWord = async (word) => {
     try {
-        const response = await fetch(`https://dictionary.yandex.net/api/v1/dicservice.json/lookup?key=${import.meta.env.VITE_YANDEX_API_KEY}&lang=de-de&text=${word}`);
+      // First API call to ensure the word is German
+        const response = await fetch(`https://dictionary.yandex.net/api/v1/dicservice.json/lookup?key=${import.meta.env.VITE_YANDEX_API_KEY}&lang=de-de&text=${word}`); // [lang=de-de] 
+        
         const data = await response.json();
 
         if (data.def && data.def.length > 0) {
+          // Second API call to get the gender information
+          const responseWithGen = await fetch(`https://dictionary.yandex.net/api/v1/dicservice.json/lookup?key=${import.meta.env.VITE_YANDEX_API_KEY}&lang=de-en&text=${word}`); // [lang=de-en] 
+          const dataWithGen = await responseWithGen.json();
             const germanWord = data.def[0].text;
             const wordType = data.def[0].pos;
-            const article = data.def[0].gen === 'm' ? 'der' : data.def[0].gen === 'f' ? 'die' : data.def[0].gen === 'n' ? 'das' : '';
-
+            let article = '';
             
-                setAvailableResult(true);
-                setWordType(wordType);
-                setWord(`${article} ${germanWord}`);
-         
+
+            if (dataWithGen.def[0].gen) {
+                switch (dataWithGen.def[0].gen) {
+                    case 'm':
+                        article = 'der';
+                        break;
+                    case 'f':
+                        article = 'die';
+                        break;
+                    case 'n':
+                        article = 'das';
+                        break;
+                    default:
+                        article = false;
+                }
+                setArticle(article)
+            }
+
+            setWordType(wordType);
+            setWord(`${article} ${germanWord}`);
+            console.log(word)
+            setAvailableResult(true);
         } else {
             setAvailableResult(false);
         }
@@ -81,8 +104,8 @@ const SearchSection = () => {
 
     </motion.div>
         </div>
-        { search.length>0 & availableResult ? <SearchResult title={word} type={wordType}/> : '' }
-        { search.length>0 & !availableResult ? <NoResult/> :'' }
+        { search.length>=2 & availableResult ? <SearchResult input={search} word={word} type={wordType} article={article}/> : '' }
+        { search.length>=2 & !availableResult ? <NoResult/> :'' }
       </div> 
     </section>
   );
