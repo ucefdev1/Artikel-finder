@@ -1,3 +1,4 @@
+
 # Artikel Finder
 
 **Artikel Finder** is a web application that helps users find the correct German articles (der, die, das) for any given noun. The project is built using React and relies on the Yandex Dictionary API to fetch and display the gender and type of German words.
@@ -30,18 +31,18 @@
 
 1. **Clone the Repository**
 
-   \`\`\`bash
+   ```bash
    git clone https://github.com/ucefdev1/Artikel-finder.git
    cd Artikel-finder
-   \`\`\`
+   ```
 
 2. **Install Dependencies**
 
    Run the following command to install all necessary dependencies:
 
-   \`\`\`bash
+   ```bash
    npm install
-   \`\`\`
+   ```
 
 3. **Add Your Yandex API Key**
 
@@ -50,9 +51,9 @@
    - [Sign up for an API key](https://translate.yandex.com/developers) on the Yandex website.
    - Create a `.env` file in the root directory of your project and add the following line:
 
-     \`\`\`plaintext
+     ```plaintext
      VITE_YANDEX_API_KEY=YOUR_API_KEY
-     \`\`\`
+     ```
 
      Replace `YOUR_API_KEY` with the actual API key you received from Yandex.
 
@@ -60,9 +61,9 @@
 
    Start the development server using Vite:
 
-   \`\`\`bash
+   ```bash
    npm run dev
-   \`\`\`
+   ```
 
    The application will be available at `http://localhost:3000`.
 
@@ -90,9 +91,9 @@ If you want to edit the project, follow these steps:
 
 To deploy the application, you can build the project using Vite and then serve the static files:
 
-\`\`\`bash
+```bash
 npm run build
-\`\`\`
+```
 
 After the build is complete, the output will be in the `dist/` folder, which you can then deploy to any static hosting service, such as Netlify, Vercel, or GitHub Pages.
 
