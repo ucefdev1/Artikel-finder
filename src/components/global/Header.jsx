@@ -36,7 +36,7 @@ const Header = ({setActive}) => {
       
         </li>
         <li>
-        <a href=''><FaGithub size={25} /></a>
+        <a href='https://github.com/ucefdev1/Artikel-finder'><FaGithub size={25} /></a>
         </li>
       </ul>
     </nav>
