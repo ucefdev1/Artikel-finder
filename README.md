@@ -101,10 +101,6 @@ After the build is complete, the output will be in the `dist/` folder, which you
 
 Contributions are welcome! Feel free to submit a pull request or open an issue if you have any suggestions or bug reports.
 
-## License
-
-This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for more details.
-
 ## Author
 
 Created by Youssef Rifai. You can connect with me on [GitHub](https://github.com/ucefdev1).
