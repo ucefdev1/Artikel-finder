@@ -1,13 +1,15 @@
 import React from 'react';
 import SectionImage from '../assets/img1.svg';
 import { useState } from 'react';
-import { Card } from './parts/Card';
 import { motion } from 'framer-motion';
+import SearchResult from './parts/SearchResult';
+import NoResult from './parts/NoResult';
 
 
 const SearchSection = () => {
 
   const [search,setSearch] = useState('')
+  const [availableResult,setAvailableResult] = useState(false)
   const [word,setWord] = useState('')
   const [wordType,setWordType] = useState('')
   
@@ -20,26 +22,27 @@ const SearchSection = () => {
 
   const fetchSearchWord = async (word) => {
     try {
-        const response = await fetch(`https://dictionary.yandex.net/api/v1/dicservice.json/lookup?key=${import.meta.env.VITE_YANDEX_API_KEY}&lang=de-en&text=${word}`);
+        const response = await fetch(`https://dictionary.yandex.net/api/v1/dicservice.json/lookup?key=${import.meta.env.VITE_YANDEX_API_KEY}&lang=de-de&text=${word}`);
         const data = await response.json();
-        console.log(data)
 
-        // Assuming Yandex Dictionary API provides part of speech (pos) in the definition entries
         if (data.def && data.def.length > 0) {
-            const wordType = data.def[0].pos; // Get the part of speech of the first definition
-            setWord(data.def[0].text);
-            setWordType(wordType);
+            const germanWord = data.def[0].text;
+            const wordType = data.def[0].pos;
+            const article = data.def[0].gen === 'm' ? 'der' : data.def[0].gen === 'f' ? 'die' : data.def[0].gen === 'n' ? 'das' : '';
 
-            console.log(`Word: ${data.def[0].text}, Type: ${wordType}`);
+            
+                setAvailableResult(true);
+                setWordType(wordType);
+                setWord(`${article} ${germanWord}`);
+         
         } else {
-            setSearch(false)
+            setAvailableResult(false);
         }
     } catch (error) {
-      setSearch('problem')
+        setSearch('problem');
         console.error('Error fetching word details:', error);
     }
 };
-
 
 
   return (
@@ -78,30 +81,14 @@ const SearchSection = () => {
 
     </motion.div>
         </div>
-        {/* After search finished */}
-       
-        {
-          
-          search.length ?
-          <motion.div 
-          className="flex md:flex-row flex-col"
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: 10 }}
-          transition={{ duration: 0.5 }}
-        >
-          <div className="flex md:flex-row flex-col">
-          {/* Artikel */}
-       <Card color={'green'} title={'Artikel'} content={'Lorel text Lorel text Lorel text Lorel text Lorel text Lorel text Lorel text Lorel text Lorel text Lorel text Lorel text Lorel text Lorel text '}/>
-       <Card color={'yellow'} title={'Artikel'} content={'Lorel text Lorel text Lorel text Lorel text Lorel text Lorel text Lorel text Lorel text Lorel text Lorel text Lorel text Lorel text Lorel text '}/>
-       <Card color={'red'} title={'Artikel'} content={'Lorel text Lorel text Lorel text Lorel text Lorel text Lorel text Lorel text Lorel text Lorel text Lorel text Lorel text Lorel text Lorel text '}/>
-       <Card color={'blue'} title={'Artikel'} content={'Lorel text Lorel text Lorel text Lorel text Lorel text Lorel text Lorel text Lorel text Lorel text Lorel text Lorel text Lorel text Lorel text '}/>
-
-        </div></motion.div> : ''
-        } 
+        { search.length>0 & availableResult ? <SearchResult title={word} type={wordType}/> : '' }
+        { search.length>0 & !availableResult ? <NoResult/> :'' }
       </div> 
     </section>
   );
 }
+
+
+
 
 export default SearchSection;
