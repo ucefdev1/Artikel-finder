@@ -95,7 +95,7 @@ const Game = () => {
         }
         fetchRandomNoun();
     }
-
+  
     
     const fetchRandomNoun = async () => {
         try {
